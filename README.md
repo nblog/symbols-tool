@@ -3,14 +3,14 @@
 
 
 ### support symbol server
-- [microsoft]("https://msdl.microsoft.com/download/symbols")
-- [chromium]("https://chromium-browser-symsrv.commondatastorage.googleapis.com")
-- [amd]("https://download.amd.com/dir/bin")
-- [nvidia]("https://driver-symbols.nvidia.com")
-- [intel]("https://software.intel.com/sites/downloads/symbols")
+- [microsoft symbol](https://msdl.microsoft.com/download/symbols)
+- [chromium symbol](https://chromium-browser-symsrv.commondatastorage.googleapis.com)
+- [amd symbol](https://download.amd.com/dir/bin)
+- [nvidia symbol](https://driver-symbols.nvidia.com)
+- [intel symbol](https://software.intel.com/sites/downloads/symbols)
 
 
-### Thanks
+### thanks
 - [lief](https://github.com/lief-project/LIEF)
 - [RetrieveSymbols](https://github.com/google/UIforETW/tree/main/RetrieveSymbols)
 
