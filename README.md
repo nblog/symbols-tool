@@ -8,6 +8,7 @@
 - [amd symbol](https://download.amd.com/dir/bin)
 - [nvidia symbol](https://driver-symbols.nvidia.com)
 - [intel symbol](https://software.intel.com/sites/downloads/symbols)
+- [mozilla symbol](https://symbols.mozilla.org/)
 
 
 ### thanks
