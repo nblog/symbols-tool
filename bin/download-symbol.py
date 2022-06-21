@@ -14,6 +14,7 @@ def sym_svr():
         "https://download.amd.com/dir/bin",
         "https://driver-symbols.nvidia.com/",
         "https://software.intel.com/sites/downloads/symbols/",
+        "https://symbols.mozilla.org/",
     ]
 
 
