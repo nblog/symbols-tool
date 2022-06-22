@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
 
-import os, sys, subprocess
+import os, sys, json, subprocess
 
 
 def sym_path():
-    return os.path.expandvars(os.path.join("%SystemDrive%", "symbols"))
+    try:
+        return os.path.expandvars(
+            json.load(open("sym_svr.json", encoding="utf-8-sig"))["path"]
+        )
+    except:
+        return os.path.expandvars(os.path.join("%systemdrive%", "symbols"))
 
 
 def sym_svr():
-    return [
-        "https://msdl.microsoft.com/download/symbols",
-        "https://chromium-browser-symsrv.commondatastorage.googleapis.com",
-        "https://download.amd.com/dir/bin",
-        "https://driver-symbols.nvidia.com/",
-        "https://software.intel.com/sites/downloads/symbols/",
-        "https://symbols.mozilla.org/",
-    ]
+    try:
+        return json.load(open("sym_svr.json", encoding="utf-8-sig"))["svr"]
+    except:
+        ''' dummy '''
+        return [ "https://msdl.microsoft.com/download/symbols" ]
 
 
 def pdb_info(pefile):
@@ -47,21 +49,28 @@ def pdb_info(pefile):
 def main():
 
     if (2 > len(sys.argv)):
-        print( "Use: " + os.path.splitext(os.path.basename(__file__))[0] + " pefile" )
+        print( 
+            " ".join([
+                "Use:", os.path.splitext(os.path.basename(__file__))[0],
+                "pefile"])
+        )
         sys.exit(1)
 
-    assert( os.path.exists(sys.argv[1]) )
+
+    pefile = sys.argv[1]
+
+    if (not os.path.exists(pefile)):
+        raise FileExistsError("\"{}\" does not exist".format(pefile))
 
     ''' symbol environ '''
-    if (not hasattr(os.environ, "_NT_SYMBOL_PATH")):
-        os.environ["_NT_SYMBOL_PATH"] = ";".join( \
+    if ( not "_NT_SYMBOL_PATH" in os.environ ):
+        os.environ["_NT_SYMBOL_PATH"] = \
+            ";".join( \
             map(lambda svr: "SRV*{}*{}".format(sym_path(), svr), sym_svr()))
 
     ''' symbol info '''
-    cmd = pdb_info(sys.argv[1])
-
     sys.exit(
-        subprocess.call("RetrieveSymbols " + cmd)
+        subprocess.call(" ".join(["RetrieveSymbols", pdb_info(pefile)]))
     )
 
 
